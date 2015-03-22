@@ -1,0 +1,9 @@
+<div class="blogger-content">
+    <h3>New Blog</h3>
+    <textarea id="new-blog"></textarea>
+    <button id="add-blog"></button>
+    <h3>Blogs</h3>
+    <li ng-repeat="blog in blogs | filter:searchText" class="blogs-listing">
+        <a href="#">{{blog.content}}</a>
+    </li>
+</div>

@@ -1,0 +1,83 @@
+apply plugin: 'idea'
+apply plugin: 'java'
+apply plugin: 'groovy'
+apply plugin: 'com.bmuschko.tomcat'
+apply plugin: 'com.bmuschko.tomcat-base'
+apply plugin: 'application'
+
+mainClassName = 'com.razor.blogger.EntryPoint'
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath([group: 'com.bmuschko', name: 'gradle-tomcat-plugin', version: '2.1'])
+    }
+}
+
+repositories {
+    mavenCentral()
+    maven {
+        url "https://oss.sonatype.org/content/repositories/snapshots/"
+    }
+    maven {
+        url "http://repository-jongo.forge.cloudbees.com/release"
+    }
+}
+
+ext {
+    gebSpockVersion = '0.9.0'
+    spockVersion = '0.7-groovy-2.0'
+    testngVersion = '6.7'
+    junitVersion = '4.10'
+}
+
+dependencies {
+
+    compile(
+            [group: 'org.slf4j', name:'slf4j-api', version:'1.7.10'],
+            [group: 'com.google.code.gson', name:'gson', version:'2.3.1'],
+            [group: 'org.mongodb', name:'mongo-java-driver', version:'3.0.0-SNAPSHOT'],
+            [group: 'org.mongodb.morphia', name:'morphia', version:'0.110'],
+            [group: 'org.jongo', name:'jongo', version:'1.2-early-20150210-0143'],
+            [group: 'com.sparkjava', name: 'spark-core', version: '2.1'],
+            [group: 'org.aeonbits.owner', name: 'owner', version: '1.0.6']
+    )
+
+    testCompile(
+            [ group: 'org.testng',                 name: 'testng',              version: testngVersion ],
+            [ group: 'junit',                      name: 'junit-dep',           version: junitVersion ],
+            [ group: 'org.hamcrest',               name: 'hamcrest-all',        version: '1.3' ],
+            [ group: 'org.spockframework',         name: 'spock-core',          version: spockVersion ],
+            [ group: 'org.mockito',                name: 'mockito-all',         version: '1.9.5' ],
+            [ group: 'org.gebish',                 name: 'geb-spock',           version: gebSpockVersion ]
+    )
+}
+
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.1'
+}
+
+war {
+    baseName = 'razor-blogger'
+    classifier = ''
+    version = ''
+}
+
+task start(type: com.bmuschko.gradle.tomcat.tasks.TomcatRun) {
+    group "Application"
+    description "Starts the Application"
+    contextPath = "/"
+    httpPort = 8089
+    stopPort = 8084
+    stopKey = 'stopKey'
+}
+
+task stop(type: com.bmuschko.gradle.tomcat.tasks.TomcatStop) {
+    group "Application"
+    description "Stops the Application"
+    stopPort = 8084
+    stopKey = 'stopKey'
+}
