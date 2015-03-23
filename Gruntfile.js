@@ -11,7 +11,7 @@ module.exports = function(grunt) {
             public: '<%= project.root %>/public',
             app: '<%= project.root %>/app',
             scss: [
-                '<%= project.public %>/scss/app.scss'
+                '<%= project.public %>/scss/*.scss'
             ],
             js: [
                 '<%= project.public %>/scripts/*.js',
@@ -94,10 +94,7 @@ module.exports = function(grunt) {
     // 5. Where we tell Grunt what other tasks to run
 
     grunt.registerTask('test', ['karma']);
+    grunt.registerTask('build', ['sass:dev', 'karma']);
     grunt.registerTask('pre-deploy', ['sass:dist', 'concat', 'uglify']);
 
 };
-
-
-
-

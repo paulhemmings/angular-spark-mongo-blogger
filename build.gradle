@@ -4,15 +4,25 @@ apply plugin: 'groovy'
 apply plugin: 'com.bmuschko.tomcat'
 apply plugin: 'com.bmuschko.tomcat-base'
 apply plugin: 'application'
+apply plugin: 'com.moowork.node'
+apply plugin: 'com.moowork.grunt'
 
 mainClassName = 'com.razor.blogger.EntryPoint'
 
 buildscript {
     repositories {
         jcenter()
+        maven {
+            name 'JFrog OSS snapshot repo'
+            url  'https://oss.jfrog.org/oss-snapshot-local/'
+        }
     }
     dependencies {
-        classpath([group: 'com.bmuschko', name: 'gradle-tomcat-plugin', version: '2.1'])
+        classpath(
+                [group: 'com.bmuschko', name: 'gradle-tomcat-plugin', version: '2.1'],
+                [group: 'com.moowork.gradle', name: 'gradle-node-plugin', version: '0.8'],
+                [group: 'com.moowork.gradle', name: 'gradle-grunt-plugin', version: '0.9']
+        )
     }
 }
 
@@ -81,3 +91,10 @@ task stop(type: com.bmuschko.gradle.tomcat.tasks.TomcatStop) {
     stopPort = 8084
     stopKey = 'stopKey'
 }
+
+// makes sure on each build that grunt is installed
+grunt_build.dependsOn 'installGrunt'
+// processes your package.json before running grunt build
+grunt_build.dependsOn 'npmInstall'
+// runs "grunt build" as part of your gradle build
+build.dependsOn grunt_build

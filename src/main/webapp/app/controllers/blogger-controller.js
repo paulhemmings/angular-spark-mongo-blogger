@@ -40,7 +40,8 @@ angular
 
             $scope['__test__'] = {
                 handleUploadResponse: handleUploadResponse,
-                loadBlogs: loadBlogs
+                loadBlogs: loadBlogs,
+                uploadFile: uploadFile
             }
 
         }]);
