@@ -1,8 +1,0 @@
-.gradle
-build/
-
-# Ignore Gradle GUI config
-gradle-app.setting
-
-# OSX
-.DS_Store
