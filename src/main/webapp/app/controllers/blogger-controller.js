@@ -11,10 +11,15 @@ angular
 
 
             $scope.updateBlog = updateBlog;
+            $scope.selectBlog = selectBlog;
 
             function updateBlog(blog) {
                 //update blog
                 bloggerService.updateBlog(blog);
+            }
+
+            function selectBlog(blog) {
+                bloggerService.getBlog(blog);
             }
 
             function handleUploadResponse(response) {

@@ -16,6 +16,7 @@ module.exports = function (karma) {
     /******* Core Dependencies (Order Matters!) ******************/
         './../../main/webapp/bower_components/angular/angular.js',
         './../../main/webapp/bower_components/angular-route/angular-route.js',
+        './../../main/webapp/bower_components/angular-ui-router/release/angular-ui-router.min.js',
         './../../main/webapp/bower_components/angular-animate/angular-animate.js',
         './../../main/webapp/bower_components/angular-sanitize/angular-sanitize.js',
         './../../main/webapp/bower_components/angular-ui-select/dist/select.js',

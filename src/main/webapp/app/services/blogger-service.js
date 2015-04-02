@@ -28,9 +28,18 @@ angular
             });
         }
 
+        function getBlog(blog) {
+            return $http({
+                url: '/blog/' + blog.id,
+                data: blog,
+                method: "GET"
+            });
+        }
+
         return {
             listBlogs: listBlogs,
-            updateBlog: updateBlog
+            updateBlog: updateBlog,
+            getBlog: getBlog
         };
 
     });

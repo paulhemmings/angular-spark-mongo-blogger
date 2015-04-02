@@ -37,7 +37,7 @@
 
         <div class="row">
           <div class="col-sm-8 blog-main">
-            <div ng-view class="page-frame"></div>
+            <div ui-view="content"></div>
           </div>
 
           <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
@@ -46,6 +46,7 @@
               <p>Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
             </div>
             <div class="sidebar-module">
+              <div ui-view="sidebar"></div>
               <h4>Archives</h4>
               <ol class="list-unstyled">
               </ol>
@@ -74,6 +75,7 @@
     <!-- App libs -->
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
     <script src="bower_components/angular-animate/angular-animate.min.js"></script>
     <script src="bower_components/angular-loading-bar/build/loading-bar.js"></script>
 

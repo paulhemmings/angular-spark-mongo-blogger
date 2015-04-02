@@ -6,7 +6,7 @@
  *  var app = angular.module('app');
  */
 
-angular.module('MainApplicationModule', ['ngRoute', 'ngAnimate', 'angular-loading-bar']);
+angular.module('MainApplicationModule', ['ui.router', 'ngAnimate', 'angular-loading-bar']);
 
 /*
  * Add SPA Routing using route provider
@@ -18,12 +18,21 @@ angular.module('MainApplicationModule', ['ngRoute', 'ngAnimate', 'angular-loadin
 
 angular
     .module('MainApplicationModule')
-    .config(function ($routeProvider) {
-        $routeProvider
-            .when('/blogger',
-            {
-                controller: 'BloggerController',
-                templateUrl: '/app/partials/blogger.html'
-            })
-            .otherwise({ redirectTo: '/blogger' });
-    });
+    .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
+    $urlRouterProvider.otherwise('/blogger');
+
+    $stateProvider
+        .state('blogger', {
+            url:'/blogger',
+            views: {
+                'content': {
+                    templateUrl: '/app/partials/blogger.html',
+                    controller: 'BloggerController'
+                },
+                'sidebar': {
+                    templateUrl: '/app/partials/blogger-sidebar.html',
+                    controller: 'BloggerController'
+                }
+            }
+        })
+}]);

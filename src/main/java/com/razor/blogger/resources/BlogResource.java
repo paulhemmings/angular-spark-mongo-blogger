@@ -23,6 +23,12 @@ public class BlogResource {
                 json()
         );
 
+        // GET
+        get("/blog/:id", "application/json", (request, response) ->
+                        blogService.findById(request.params(":id")),
+                json()
+        );
+
         // UPDATE
         put("/blog", "application/json", (request, response) ->
                         blogService.update(request.body()),
