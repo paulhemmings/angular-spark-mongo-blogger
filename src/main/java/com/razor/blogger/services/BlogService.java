@@ -3,7 +3,6 @@ package com.razor.blogger.services;
 import com.google.gson.Gson;
 import com.razor.blogger.models.BlogModel;
 import com.razor.blogger.providers.ModelProvider;
-import com.razor.blogger.providers.jongo.BlogProvider;
 
 import java.util.List;
 

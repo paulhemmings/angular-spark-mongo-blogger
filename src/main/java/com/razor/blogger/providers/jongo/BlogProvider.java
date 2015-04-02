@@ -3,7 +3,6 @@ package com.razor.blogger.providers.jongo;
 import com.mongodb.DB;
 import com.razor.blogger.models.BlogModel;
 import com.razor.blogger.providers.ModelProvider;
-import org.bson.types.ObjectId;
 import org.jongo.Jongo;
 import org.jongo.MongoCollection;
 import org.jongo.MongoCursor;

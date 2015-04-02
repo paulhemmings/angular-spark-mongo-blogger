@@ -4,7 +4,6 @@ import com.mongodb.MongoClient;
 import com.razor.blogger.configuration.PersistenceConfig;
 import com.razor.blogger.models.BlogModel;
 import com.razor.blogger.providers.ModelProvider;
-import com.razor.blogger.providers.jongo.BlogProvider;
 import com.razor.blogger.providers.jongo.JongoProvider;
 import com.razor.blogger.providers.mongo.MongoProvider;
 import com.razor.blogger.providers.mongo.SimpleMongoModelAdapter;
