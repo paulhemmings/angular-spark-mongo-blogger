@@ -1,10 +1,12 @@
 package com.razor.blogger.models;
 
+import org.jongo.marshall.jackson.oid.Id;
 import org.jongo.marshall.jackson.oid.ObjectId;
 
 public class MongoModel {
 
-    @ObjectId // auto
+    @Id
+    @ObjectId
     protected String id;
 
     public String getId() {

@@ -30,6 +30,7 @@ public class EntryPoint {
 
     /*
      * Build provider based on configuration
+     * Only works because we're building provider for single model
      */
 
     private static ModelProvider<BlogModel> buildProvider(PersistenceConfig persistenceConfig,
