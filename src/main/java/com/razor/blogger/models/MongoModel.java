@@ -1,12 +1,14 @@
 package com.razor.blogger.models;
 
-import org.jongo.marshall.jackson.oid.Id;
-import org.jongo.marshall.jackson.oid.ObjectId;
+// import org.jongo.marshall.jackson.oid.Id;
+// import org.jongo.marshall.jackson.oid.ObjectId;
+// import org.mongodb.morphia.annotations.Id;
 
 public class MongoModel {
 
-    @Id
-    @ObjectId
+    @org.mongodb.morphia.annotations.Id
+    @org.jongo.marshall.jackson.oid.Id
+    @org.jongo.marshall.jackson.oid.ObjectId
     protected String id;
 
     public String getId() {

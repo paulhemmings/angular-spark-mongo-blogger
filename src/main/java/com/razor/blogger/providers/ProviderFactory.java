@@ -6,6 +6,7 @@ import com.razor.blogger.models.MongoModel;
 import com.razor.blogger.providers.jongo.JongoProvider;
 import com.razor.blogger.providers.mongo.MongoProvider;
 import com.razor.blogger.providers.mongo.SimpleMongoModelAdapter;
+import com.razor.blogger.providers.morphia.MorphiaProvider;
 
 public class ProviderFactory<T extends MongoModel> {
 
@@ -27,6 +28,7 @@ public class ProviderFactory<T extends MongoModel> {
                 provider = buildJongoProvider(client, database, collection, clazz);
                 break;
             case "morphia":
+                provider = buildMorphiaProvider(client, database, clazz);
                 break;
             default:
                 throw new Exception("Invalid provider configuration");
@@ -52,5 +54,17 @@ public class ProviderFactory<T extends MongoModel> {
 
     private ModelProvider<T> buildMongoProvider(MongoClient client, String database, String collection, Class<T> clazz ) {
         return new MongoProvider<>(client.getDatabase(database).getCollection(collection), new SimpleMongoModelAdapter<>(clazz));
+    }
+
+    /**
+     * Use Morphia ORM
+     * @param client
+     * @param database
+     * @param clazz
+     * @return
+     */
+
+    private ModelProvider<T> buildMorphiaProvider(MongoClient client, String database, Class<T> clazz) {
+        return new MorphiaProvider<>(client, database, clazz);
     }
 }

@@ -1,9 +1,8 @@
 package com.razor.blogger.models;
 
-import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
 
-@Entity("blog")
+@Entity("blogs")
 public class BlogModel extends MongoModel {
 
     private String date;
