@@ -1,9 +1,21 @@
-<div class="blogger-content">
-    <h3>New Blog</h3>
-    <textarea id="new-blog"></textarea>
-    <button id="add-blog"></button>
-    <h3>Blogs</h3>
-    <li ng-repeat="blog in blogs | filter:searchText" class="blogs-listing">
-        <a href="#">{{blog.content}}</a>
-    </li>
+<h3>Add</h3>
+<div id="new-blog-post">
+    <input type="text" ng-model="newBlog.title"/>
+    <textarea ng-model="newBlog.content"></textarea>
+    <button ng-click="updateBlog(newBlog)">Add</button>
+</div>
+<div id="existing-posts">
+    <h3>Posts</h3>
+    <div ng-repeat="blog in blogs | filter:searchText" class="blogs-listing">
+      <div class="blog-post">
+        <h2 class="blog-post-title">{{blog.title}}</h2>
+        <ul class="blog-post-meta">
+            <li ng-repeat="tag in blog.tags">{{tag}}</li>
+        </ul>
+        <div class="blog-post-content">
+          <textarea ng-model="blog.content">{{blog.content}}</textarea>
+        </div>
+          <button ng-click="updateBlog(blog)">Update</button>
+      </div>
+    </div>
 </div>

@@ -20,8 +20,17 @@ angular
             });
         }
 
+        function updateBlog(blog) {
+            return $http({
+                url: '/blog',
+                data: blog,
+                method: "PUT"
+            });
+        }
+
         return {
-            listBlogs : listBlogs
+            listBlogs: listBlogs,
+            updateBlog: updateBlog
         };
 
     });

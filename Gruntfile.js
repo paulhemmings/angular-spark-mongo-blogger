@@ -39,7 +39,7 @@ module.exports = function(grunt) {
                     compass: false
                 },
                 files: {
-                    '<%= project.public %>/styles/global.css': '<%= project.scss %>'
+                    '<%= project.public %>/styles/blog.css': '<%= project.scss %>'
                 }
             },
             dist: {

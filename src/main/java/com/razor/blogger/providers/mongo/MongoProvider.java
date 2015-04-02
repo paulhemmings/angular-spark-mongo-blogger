@@ -1,9 +1,11 @@
 package com.razor.blogger.providers.mongo;
 
+import com.mongodb.BasicDBObject;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.razor.blogger.providers.ModelProvider;
 import org.bson.Document;
+import org.bson.types.ObjectId;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,11 +68,15 @@ public class MongoProvider<T> implements ModelProvider<T> {
      * @return
      */
 
-    public T update(T model, String id) {
-        if (id == null || id.isEmpty()) {
+    public T update(T model, ObjectId id) {
+        if (id == null) {
             collection.insertOne(adapter.toDocument(model));
         } else {
-            collection.updateOne(eq("_id", id), adapter.toDocument(model));
+            BasicDBObject setter = new BasicDBObject();
+            Document document = adapter.toDocument(model);
+            document.remove("_id");
+            setter.append("$set", document);
+            collection.updateOne(eq("_id", id), setter);
         }
         return model;
     }

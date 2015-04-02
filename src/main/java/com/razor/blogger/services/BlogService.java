@@ -1,5 +1,6 @@
 package com.razor.blogger.services;
 
+import com.google.gson.Gson;
 import com.razor.blogger.models.BlogModel;
 import com.razor.blogger.providers.ModelProvider;
 import com.razor.blogger.providers.jongo.BlogProvider;
@@ -23,5 +24,14 @@ public class BlogService {
     public BlogModel findById(String id) {
         return this.getProvider().findById(id);
     }
+
+    public BlogModel update(BlogModel blogModel) {
+        return this.getProvider().update(blogModel, blogModel.getId());
+    }
+
+    public BlogModel update(String body) {
+        BlogModel blogModel = new Gson().fromJson(body, BlogModel.class);
+        return this.getProvider().update(blogModel, blogModel.getId());
+    }    
 
 }

@@ -3,6 +3,7 @@ package com.razor.blogger.providers.jongo;
 import com.mongodb.DB;
 import com.razor.blogger.models.BlogModel;
 import com.razor.blogger.providers.ModelProvider;
+import org.bson.types.ObjectId;
 import org.jongo.Jongo;
 import org.jongo.MongoCollection;
 import org.jongo.MongoCursor;
@@ -22,8 +23,7 @@ public class BlogProvider implements ModelProvider<BlogModel> {
 
     public long initialize(MongoCollection blogs) {
         if (blogs.count() < 1) {
-            BlogModel blogModel = new BlogModel();
-            blogModel.content = "test-content";
+            BlogModel blogModel = new BlogModel().setContent("test-content");
             blogs.insert(blogModel);
         }
         return blogs.count();
@@ -44,7 +44,7 @@ public class BlogProvider implements ModelProvider<BlogModel> {
     }
 
     @Override
-    public BlogModel update(BlogModel model, String id) {
+    public BlogModel update(BlogModel model, ObjectId id) {
         return null;
     }
 

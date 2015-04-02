@@ -11,4 +11,8 @@ public interface PersistenceConfig extends Config {
     @Config.Key("persistence.mongo.database")
     @DefaultValue("blogger")
     String mongoDatabase();
+
+    @Config.Key("persistence.mongo.provider")
+    @DefaultValue("mongo")
+    String mongoProvider();
 }

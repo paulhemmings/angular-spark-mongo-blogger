@@ -9,6 +9,14 @@ angular
             $scope.blogs = [];
             $scope.selectedBlog = null;
 
+
+            $scope.updateBlog = updateBlog;
+
+            function updateBlog(blog) {
+                //update blog
+                bloggerService.updateBlog(blog);
+            }
+
             function handleUploadResponse(response) {
                 // show response
                 $scope.responseData.push(response.data);

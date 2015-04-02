@@ -25,7 +25,30 @@ public class EntryPoint {
         staticFileLocation("/public");
         PersistenceConfig persistenceConfig = buildPersistenceConfig();
         MongoClient client = new MongoClient(persistenceConfig.mongoHost());
-        new BlogResource(new BlogService(buildJongoProvider(client, persistenceConfig.mongoDatabase())));
+        new BlogResource(new BlogService(buildProvider(persistenceConfig, client, persistenceConfig.mongoDatabase())));
+    }
+
+    /*
+     * Build provider based on configuration
+     */
+
+    private static ModelProvider<BlogModel> buildProvider(PersistenceConfig persistenceConfig,
+                                                          MongoClient client,
+                                                          String database) throws Exception {
+        ModelProvider<BlogModel> provider = null;
+        switch (persistenceConfig.mongoProvider()) {
+            case "mongo":
+                provider = buildMongoProvider(client, database);
+                break;
+            case "jongo":
+                provider = buildJongoProvider(client, database);
+                break;
+            case "morphia":
+                break;
+            default:
+                throw new Exception("Invalid provider configuration");
+        }
+        return provider;
     }
 
     /**
