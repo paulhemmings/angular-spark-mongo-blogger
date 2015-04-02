@@ -5,6 +5,7 @@ import com.razor.blogger.configuration.PersistenceConfig;
 import com.razor.blogger.models.BlogModel;
 import com.razor.blogger.providers.ModelProvider;
 import com.razor.blogger.providers.jongo.BlogProvider;
+import com.razor.blogger.providers.jongo.JongoProvider;
 import com.razor.blogger.providers.mongo.MongoProvider;
 import com.razor.blogger.providers.mongo.SimpleMongoModelAdapter;
 import com.razor.blogger.resources.BlogResource;
@@ -59,7 +60,7 @@ public class EntryPoint {
      */
 
     private static ModelProvider<BlogModel> buildJongoProvider(MongoClient client, String database) {
-        return new BlogProvider(client.getDB(database));
+        return new JongoProvider<>(client.getDB(database), "blogs", BlogModel.class);
     }
 
     /**
