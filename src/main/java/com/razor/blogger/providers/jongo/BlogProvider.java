@@ -44,7 +44,7 @@ public class BlogProvider implements ModelProvider<BlogModel> {
     }
 
     @Override
-    public BlogModel update(BlogModel model, ObjectId id) {
+    public BlogModel update(BlogModel model, String id) {
         return null;
     }
 

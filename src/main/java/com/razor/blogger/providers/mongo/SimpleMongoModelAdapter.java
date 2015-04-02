@@ -1,9 +1,11 @@
 package com.razor.blogger.providers.mongo;
 
 import com.google.gson.Gson;
+import com.razor.blogger.models.MongoModel;
 import org.bson.Document;
+import org.bson.types.ObjectId;
 
-public class SimpleMongoModelAdapter<T> implements MongoModelAdapter<T> {
+public class SimpleMongoModelAdapter<T extends MongoModel> implements MongoModelAdapter<T> {
 
     Gson gson = null;
     Class<T> clazz;
@@ -15,11 +17,18 @@ public class SimpleMongoModelAdapter<T> implements MongoModelAdapter<T> {
 
     @Override
     public T fromDocument(Document document) {
-        return this.gson.fromJson(document.toJson(), this.clazz);
+        String objectId = document.get("_id").toString();
+        document.remove("_id");
+        T model = this.gson.fromJson(document.toJson(), this.clazz);
+        model.setId(objectId);
+        return model;
     }
 
     @Override
     public Document toDocument(T model) {
-        return Document.parse(new Gson().toJson(model));
+        Document document = Document.parse(new Gson().toJson(model));
+        document.remove("id");
+        document.append("_id", new ObjectId(model.getId()));
+        return document;
     }
 }

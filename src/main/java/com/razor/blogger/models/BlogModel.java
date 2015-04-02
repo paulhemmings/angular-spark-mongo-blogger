@@ -4,23 +4,12 @@ import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
 
 @Entity("blog")
-public class BlogModel {
-    private ObjectId _id;
+public class BlogModel extends MongoModel {
+
     private String date;
     private String[] tags;
     private String title;
     private String content;
-
-
-
-    public ObjectId getId() {
-        return _id;
-    }
-
-    public BlogModel setId(ObjectId id) {
-        this._id = id;
-        return this;
-    }
 
     public String getDate() {
         return date;

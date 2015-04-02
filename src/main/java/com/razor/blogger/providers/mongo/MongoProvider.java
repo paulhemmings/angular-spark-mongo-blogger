@@ -3,12 +3,15 @@ package com.razor.blogger.providers.mongo;
 import com.mongodb.BasicDBObject;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
+import com.mongodb.client.result.UpdateResult;
 import com.razor.blogger.providers.ModelProvider;
 import org.bson.Document;
 import org.bson.types.ObjectId;
+import org.mongodb.morphia.logging.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import static com.mongodb.client.model.Filters.eq;
 
@@ -68,15 +71,18 @@ public class MongoProvider<T> implements ModelProvider<T> {
      * @return
      */
 
-    public T update(T model, ObjectId id) {
-        if (id == null) {
+    public T update(T model, String id) {
+        if (id == null || id.isEmpty()) {
             collection.insertOne(adapter.toDocument(model));
         } else {
             BasicDBObject setter = new BasicDBObject();
             Document document = adapter.toDocument(model);
             document.remove("_id");
             setter.append("$set", document);
-            collection.updateOne(eq("_id", id), setter);
+            UpdateResult result = collection.updateOne(eq("_id", new ObjectId(id)), setter);
+            if (result.getMatchedCount() > 0) {
+                Object updatedId = result.getUpsertedId();
+            }
         }
         return model;
     }
