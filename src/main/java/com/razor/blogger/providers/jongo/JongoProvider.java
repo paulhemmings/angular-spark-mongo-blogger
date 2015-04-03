@@ -2,6 +2,7 @@ package com.razor.blogger.providers.jongo;
 
 import com.mongodb.DB;
 import com.razor.blogger.providers.ModelProvider;
+import org.bson.types.ObjectId;
 import org.jongo.Jongo;
 import org.jongo.MongoCollection;
 import org.jongo.MongoCursor;
@@ -31,7 +32,7 @@ public class JongoProvider<T> implements ModelProvider<T> {
     }
 
     public T findById(String id) {
-        return this.find("_id", id);
+        return this.collection.findOne(new ObjectId(id)).as(this.clazz);
     }
 
     @Override
@@ -41,7 +42,7 @@ public class JongoProvider<T> implements ModelProvider<T> {
     }
 
     public T find(String key, String value) {
-        MongoCursor<T> blogCursor = this.collection.find("{" + key + " : " + "'" + value + "'}").as(this.clazz);
+        MongoCursor<T> blogCursor = this.collection.find("{'" + key + "' : " + "'" + value + "'}").as(this.clazz);
         if (blogCursor.hasNext()) {
             return blogCursor.next();
         }

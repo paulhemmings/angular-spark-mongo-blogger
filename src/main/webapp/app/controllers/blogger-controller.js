@@ -7,19 +7,20 @@ angular
             $scope.responseData = [];
 
             $scope.blogs = [];
-            $scope.selectedBlog = null;
+            $scope.selectedBlog = [];
 
 
             $scope.updateBlog = updateBlog;
             $scope.selectBlog = selectBlog;
 
             function updateBlog(blog) {
-                //update blog
-                bloggerService.updateBlog(blog);
+                bloggerService.updateBlog(blog).then(function(response) {
+                    bloggerService.listBlogs().then(loadBlogs);
+                });
             }
 
             function selectBlog(blog) {
-                bloggerService.getBlog(blog);
+                bloggerService.getBlog(blog).then(loadSelected);
             }
 
             function handleUploadResponse(response) {
@@ -35,9 +36,13 @@ angular
                 }).then(handleUploadResponse);
             }
 
+            function loadSelected(response) {
+                $scope.selectedBlog = [response.data];
+            }
+
             function loadBlogs(response) {
                 $scope.blogs = response.data;
-                $scope.selectedBlog = $scope.blogs[0];
+                $scope.selectedBlog = $scope.blogs;
             }
 
             function initialize() {

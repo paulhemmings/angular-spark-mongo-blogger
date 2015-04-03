@@ -1,5 +1,14 @@
-#new-blog-post, #existing-posts {
+#new-blog-post, #existing-posts, #archived-blog {
   input, textarea {
     width: 100%;
+  }
+}
+
+#archive-blog-titles {
+  li {
+    cursor: pointer;
+    :hover {
+      border-bottom: solid 1px #eee;
+    }
   }
 }
