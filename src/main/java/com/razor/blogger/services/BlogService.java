@@ -24,6 +24,10 @@ public class BlogService {
         return this.getProvider().findById(id);
     }
 
+    public List<BlogModel> find(String key, String value) {
+        return this.getProvider().find(key, value);
+    }
+
     public BlogModel update(BlogModel blogModel) {
         return this.getProvider().update(blogModel, blogModel.getId());
     }

@@ -13,6 +13,14 @@ public interface PersistenceConfig extends Config {
     String mongoDatabase();
 
     @Config.Key("persistence.mongo.provider")
-    @DefaultValue("mongo")
+    @DefaultValue("jongo")
     String mongoProvider();
+
+    @Config.Key("persistence.mongo.username")
+    @DefaultValue("")
+    String mongoUser();
+
+    @Config.Key("persistence.mongo.password")
+    @DefaultValue("")
+    String mongoPassword();
 }

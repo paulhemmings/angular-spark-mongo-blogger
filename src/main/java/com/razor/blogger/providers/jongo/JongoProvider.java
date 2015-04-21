@@ -41,11 +41,13 @@ public class JongoProvider<T> implements ModelProvider<T> {
         return model;
     }
 
-    public T find(String key, String value) {
-        MongoCursor<T> blogCursor = this.collection.find("{'" + key + "' : " + "'" + value + "'}").as(this.clazz);
-        if (blogCursor.hasNext()) {
-            return blogCursor.next();
+    public List<T> find(String key, String value) {
+        List<T> models = new ArrayList<>();
+        MongoCursor<T> cursor = this.collection.find("{'" + key + "' : " + "'" + value + "'}").as(this.clazz);
+        if (cursor.hasNext()) {
+            T model = cursor.next();
+            models.add(model);
         }
-        return null;
+        return models;
     }
 }

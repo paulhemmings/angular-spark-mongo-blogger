@@ -7,11 +7,9 @@ import com.mongodb.client.result.UpdateResult;
 import com.razor.blogger.providers.ModelProvider;
 import org.bson.Document;
 import org.bson.types.ObjectId;
-import org.mongodb.morphia.logging.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 import static com.mongodb.client.model.Filters.eq;
 
@@ -50,8 +48,17 @@ public class MongoProvider<T> implements ModelProvider<T> {
      * @return
      */
 
-    public T find(String key, String value) {
-        return adapter.fromDocument(collection.find(eq(key, value)).first());
+    public List<T> find(String key, String value) {
+        List<T> items = new ArrayList<>();
+        MongoCursor<Document> cursor = collection.find(eq(key, value)).iterator();
+        try {
+            while (cursor.hasNext()) {
+                items.add(adapter.fromDocument(cursor.next()));
+            }
+        } finally {
+            cursor.close();
+        }
+        return items;
     }
 
     /**
@@ -61,7 +68,8 @@ public class MongoProvider<T> implements ModelProvider<T> {
      */
 
     public T findById(String id) {
-        return this.find("_id", id);
+        List<T> models = this.find("_id", id);
+        return models.size() > 0 ? models.get(0) : null;
     }
 
     /**
@@ -79,10 +87,7 @@ public class MongoProvider<T> implements ModelProvider<T> {
             Document document = adapter.toDocument(model);
             document.remove("_id");
             setter.append("$set", document);
-            UpdateResult result = collection.updateOne(eq("_id", new ObjectId(id)), setter);
-            if (result.getMatchedCount() > 0) {
-                Object updatedId = result.getUpsertedId();
-            }
+            collection.updateOne(eq("_id", new ObjectId(id)), setter);
         }
         return model;
     }

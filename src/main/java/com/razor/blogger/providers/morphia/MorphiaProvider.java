@@ -26,6 +26,12 @@ public class MorphiaProvider<T> implements ModelProvider<T> {
     }
 
     @Override
+    public List<T> find(String key, String value) {
+        Query q = this.ds.createQuery(this.clazz).filter(key + " =", value);
+        return q.asList();
+    }
+
+    @Override
     public T findById(String id) {
         Query q = this.ds.createQuery(this.clazz).filter("_id =", id).limit(1);
         return (T) q.get();
